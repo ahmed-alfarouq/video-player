@@ -11,7 +11,7 @@ const VolumeControl = React.memo(
       <div className="relative flex items-center p-3 text-white">
         <button
           type="button"
-          className="relative w-5 flex text-white text-xl size-full peer cursor-pointer"
+          className="relative w-5 flex text-white text-base md:text-xl size-full peer cursor-pointer"
           onClick={toggleMute}
         >
           {value > 50 ? (

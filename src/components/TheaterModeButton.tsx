@@ -9,7 +9,7 @@ const TheaterModeButton = React.memo(
     return (
       <button
         type="button"
-        className="text-white text-xl cursor-pointer"
+        className="text-white text-base md:text-xl cursor-pointer"
         onClick={toggle}
       >
         <LuRectangleHorizontal />

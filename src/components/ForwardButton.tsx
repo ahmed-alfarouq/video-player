@@ -14,7 +14,7 @@ const ForwardButton = ({
     <button
       type="button"
       onClick={handleClick}
-      className={`flex items-center justify-center text-white text-xl hover:text-rose-600 transition-colors cursor-pointer focus:outline-none ${className}`}
+      className={`flex items-center justify-center text-white text-base md:text-xl hover:text-rose-600 transition-colors cursor-pointer focus:outline-none ${className}`}
       aria-label={ariaLabel}
     >
       <FaForward />

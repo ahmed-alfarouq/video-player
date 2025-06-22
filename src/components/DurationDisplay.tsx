@@ -18,7 +18,7 @@ const DurationDisplay = React.memo(
     };
 
     return (
-      <span className="text-white text-lg font-light leading-0">
+      <span className="text-white text-base md:text-lg font-light leading-0">
         {formatTime(duration - currentTime)}
       </span>
     );

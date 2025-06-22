@@ -9,7 +9,7 @@ const ToggleButton = React.memo(({ isPaused, toggle }: ToggleButtonProps) => {
   return (
     <button
       onClick={toggle}
-      className="text-white text-xl p-2 hover:text-rose-600 transition-colors cursor-pointer"
+      className="text-white text-base md:text-xl p-2 hover:text-rose-600 transition-colors cursor-pointer"
     >
       {!isPaused ? <IoMdPause /> : <FaPlay />}
     </button>
