@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { cn } from "@sglara/cn";
 
 import Controls from "./components/Controls";
@@ -6,6 +6,9 @@ import ErrorMessage from "./components/ErrorMessage";
 import PlayPauseOverlay from "./components/PlayPauseOverlay";
 import PlayButtonOverlay from "./components/PlayButtonOverlay";
 import BufferingIndicator from "./components/BufferingIndicator";
+
+import useStickyOnMobile from "./hooks/useStickyOnMobile";
+import useAutoHideControls from "./hooks/useAutoHideControls";
 
 import { useMobileContext } from "./context/MobileContext";
 
@@ -24,19 +27,25 @@ const VideoPlayer = ({
 
   const [hasPlayed, setHasPlayed] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [isStickyActive, setIsStickyActive] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const [canPlay, setCanPlay] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
-  const [controlsVisible, setControlsVisible] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const hideControlsTimeout = useRef<ReturnType<typeof setTimeout> | null>(
-    null
-  );
+
+  const isStickyActive = useStickyOnMobile({
+    enabled: isSticky === true,
+    containerRef,
+    isMobile,
+  });
+
+  const controlsVisible = useAutoHideControls({
+    containerRef,
+    delayMs: controlsAutoHideDelay,
+  });
 
   const handleLoadedMetadata = useCallback(() => {
     if (videoRef.current) setDuration(videoRef.current.duration);
@@ -111,54 +120,6 @@ const VideoPlayer = ({
   const toggleTheaterMode = useCallback(() => {
     onTheaterModeToggle?.();
   }, [onTheaterModeToggle]);
-
-  const handleMouseMove = useCallback(() => {
-    if (!controlsVisible) setControlsVisible(true);
-
-    if (hideControlsTimeout.current) {
-      clearTimeout(hideControlsTimeout.current);
-    }
-
-    hideControlsTimeout.current = setTimeout(() => {
-      setControlsVisible(false);
-    }, controlsAutoHideDelay);
-  }, [controlsVisible, controlsAutoHideDelay]);
-
-  const handleScroll = useCallback(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const offsetTop = container.getBoundingClientRect().top;
-    const scrollY = window.scrollY;
-
-    if (offsetTop <= 0 && !isSticky) {
-      setIsStickyActive(true);
-    } else if (scrollY < 50 && isSticky) {
-      setIsStickyActive(false);
-    }
-  }, [isSticky]);
-
-  useEffect(() => {
-    if (!isSticky || !isMobile) return;
-
-    document.addEventListener("scroll", handleScroll);
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll, isSticky, isMobile]);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    container.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      container.removeEventListener("mousemove", handleMouseMove);
-      if (hideControlsTimeout.current)
-        clearTimeout(hideControlsTimeout.current);
-    };
-  }, [handleMouseMove]);
 
   return (
     <div
