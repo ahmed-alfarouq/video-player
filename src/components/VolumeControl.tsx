@@ -8,10 +8,10 @@ import type { VolumeControlProps } from "./VideoPlayer.types";
 const VolumeControl = React.memo(
   ({ value, toggleMute, onChange }: VolumeControlProps) => {
     return (
-      <div className="relative flex items-center text-white">
+      <div className="relative flex items-center p-3 text-white">
         <button
           type="button"
-          className="relative w-5 flex text-white size-full peer cursor-pointer"
+          className="relative w-5 flex text-white text-xl size-full peer cursor-pointer"
           onClick={toggleMute}
         >
           {value > 50 ? (
@@ -22,7 +22,7 @@ const VolumeControl = React.memo(
             <FaVolumeOff className="pr-2" />
           )}
         </button>
-        <div className="absolute -top-20 -left-10 flex justify-center items-center w-24 h-11 bg-black/70 p-3 rounded -rotate-90 invisible opacity-0 peer-hover:visible peer-hover:opacity-100 hover:visible hover:opacity-100 transition-all">
+        <div className="absolute -top-16 -left-6 z-50 flex justify-center items-center w-24 h-11 bg-black/70 p-3 rounded -rotate-90 invisible opacity-0 peer-hover:visible peer-hover:opacity-100 hover:visible hover:opacity-100 transition-all">
           <ProgressBar
             currentValue={value}
             onChange={onChange}

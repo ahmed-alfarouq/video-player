@@ -4,7 +4,7 @@ import { cn } from "@sglara/cn";
 
 import type { VideoProgressBarProps } from "./VideoPlayer.types";
 
-const INDICATOR_PADDING = "8px";
+const INDICATOR_PADDING = "5px";
 
 const ProgressBar = React.memo(
   ({
@@ -97,7 +97,7 @@ const ProgressBar = React.memo(
     return (
       <div
         className={cn(
-          "relative h-2 w-full rounded bg-gray/80 cursor-pointer",
+          "relative h-1.5 w-full rounded bg-gray-600 cursor-pointer",
           barClassName
         )}
         onMouseDown={handleMouseDown}
@@ -112,13 +112,13 @@ const ProgressBar = React.memo(
         tabIndex={0}
       >
         <div
-          className={cn("h-full w-0 bg-[#6ABD8A] rounded", innerBarClassName)}
+          className={cn("h-full w-0 bg-rose-600 rounded", innerBarClassName)}
           style={{ width: `${currentValue}%` }}
           ref={innerBarRef}
         ></div>
         <span
           className={cn(
-            "absolute top-1/2 -translate-y-1/2 size-[14px] bg-[#6ABD8A] border-gray rounded-full",
+            "absolute top-1/2 -translate-y-1/2 size-3 bg-white border-gray-400 rounded-full",
             indicatorClassName
           )}
           style={{ left: `calc(${currentValue}% - ${INDICATOR_PADDING})` }}

@@ -2,6 +2,7 @@ export interface VideoPlayerProps {
   src: string;
   poster?: string;
   isSticky?: boolean;
+  controlsAutoHideDelay?: number;
   className?: string;
   onVideoEnd?: () => void;
   onTheaterModeToggle?: () => void;
@@ -11,6 +12,7 @@ export interface ControlsProps {
   videoRef: React.RefObject<HTMLVideoElement | null>;
   hasPlayed: boolean;
   isPaused: boolean;
+  isVisible: boolean;
   currentTime: number;
   duration: number;
   togglePlay: () => void;
@@ -31,6 +33,20 @@ export interface PlayButtonOverlayProps {
 export interface ToggleButtonProps {
   isPaused: boolean;
   toggle: () => void;
+}
+
+export interface ForwardButtonProps {
+  seconds?: number;
+  onSeekForward: (seconds: number) => void;
+  className?: string;
+  ariaLabel?: string;
+}
+
+export interface BackwardButtonProps {
+  seconds?: number;
+  onSeekBackward: (seconds: number) => void;
+  className?: string;
+  ariaLabel?: string;
 }
 
 export interface VolumeControlProps {

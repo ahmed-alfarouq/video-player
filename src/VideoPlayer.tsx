@@ -15,6 +15,7 @@ const VideoPlayer = ({
   src,
   poster,
   isSticky,
+  controlsAutoHideDelay = 2500,
   className,
   onVideoEnd,
   onTheaterModeToggle,
@@ -29,9 +30,13 @@ const VideoPlayer = ({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const [controlsVisible, setControlsVisible] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const hideControlsTimeout = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
 
   const handleLoadedMetadata = useCallback(() => {
     if (videoRef.current) setDuration(videoRef.current.duration);
@@ -107,6 +112,18 @@ const VideoPlayer = ({
     onTheaterModeToggle?.();
   }, [onTheaterModeToggle]);
 
+  const handleMouseMove = useCallback(() => {
+    if (!controlsVisible) setControlsVisible(true);
+
+    if (hideControlsTimeout.current) {
+      clearTimeout(hideControlsTimeout.current);
+    }
+
+    hideControlsTimeout.current = setTimeout(() => {
+      setControlsVisible(false);
+    }, controlsAutoHideDelay);
+  }, [controlsVisible, controlsAutoHideDelay]);
+
   const handleScroll = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -129,6 +146,19 @@ const VideoPlayer = ({
       document.removeEventListener("scroll", handleScroll);
     };
   }, [handleScroll, isSticky, isMobile]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    container.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      container.removeEventListener("mousemove", handleMouseMove);
+      if (hideControlsTimeout.current)
+        clearTimeout(hideControlsTimeout.current);
+    };
+  }, [handleMouseMove]);
 
   return (
     <div
@@ -172,6 +202,7 @@ const VideoPlayer = ({
         videoRef={videoRef}
         hasPlayed={hasPlayed}
         isPaused={isPaused}
+        isVisible={controlsVisible}
         currentTime={currentTime}
         duration={duration}
         togglePlay={togglePlay}

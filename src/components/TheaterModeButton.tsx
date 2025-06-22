@@ -9,10 +9,10 @@ const TheaterModeButton = React.memo(
     return (
       <button
         type="button"
-        className="text-white cursor-pointer"
+        className="text-white text-xl cursor-pointer"
         onClick={toggle}
       >
-        <LuRectangleHorizontal size={16} />
+        <LuRectangleHorizontal />
       </button>
     );
   }

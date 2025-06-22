@@ -8,10 +8,10 @@ const FullScreenToggleButton = React.memo(({ toggle }: FullScreenButtonProps) =>
   return (
     <button
       type="button"
-      className="text-white cursor-pointer"
+      className="text-white text-xl cursor-pointer"
       onClick={toggle}
     >
-      <RiFullscreenExitLine size={16} />
+      <RiFullscreenExitLine />
     </button>
   );
 });

@@ -12,7 +12,7 @@ const PlayButtonOverlay = React.memo(({ play }: PlayButtonOverlayProps) => {
       onClick={play}
       aria-label="Play video"
     >
-      <span className="block bg-rose rounded-full p-7">
+      <span className="block bg-rose-600 rounded-full p-7">
         <FaPlay className="size-7 text-[#E5E7EB] text-center" />
       </span>
     </button>
