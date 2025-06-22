@@ -21,6 +21,8 @@ const Controls = ({
   isVisible,
   duration,
   currentTime,
+  forwardSeconds,
+  backwardSeconds,
   togglePlay,
   toggleFullScreen,
   toggleTheaterMode,
@@ -171,7 +173,7 @@ const Controls = ({
     >
       <div className="flex items-center gap-3">
         <BackwardButton
-          seconds={5}
+          seconds={backwardSeconds}
           onSeekBackward={handleSeekBackward}
           className="p-2"
           ariaLabel="Go 5 seconds back"
@@ -179,7 +181,7 @@ const Controls = ({
 
         <ToggleButton isPaused={isPaused} toggle={togglePlay} />
         <ForwardButton
-          seconds={15}
+          seconds={forwardSeconds}
           onSeekForward={handleSeekForward}
           className="p-2"
           ariaLabel="Skip forward 15 seconds"

@@ -3,6 +3,8 @@ export interface VideoPlayerProps {
   poster?: string;
   isSticky?: boolean;
   controlsAutoHideDelay?: number;
+  forwardSeconds?: number;
+  backwardSeconds?: number;
   className?: string;
   onVideoEnd?: () => void;
   onTheaterModeToggle?: () => void;
@@ -15,6 +17,8 @@ export interface ControlsProps {
   isVisible: boolean;
   currentTime: number;
   duration: number;
+  forwardSeconds?: number;
+  backwardSeconds?: number;
   togglePlay: () => void;
   toggleFullScreen: () => void;
   toggleTheaterMode: () => void;

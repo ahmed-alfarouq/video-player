@@ -21,7 +21,10 @@ const App = () => {
   return (
     <MobileContext.Provider value={{ isMobile }}>
       <section className="container mx-auto mt-10 h-[1000000px]">
-        <VideoPlayer src="https://demo-video.pages.dev/want-to-work.mp4" isSticky />
+        <VideoPlayer
+          src="https://demo-video.pages.dev/want-to-work.mp4"
+          isSticky
+        />
       </section>
     </MobileContext.Provider>
   );

@@ -19,6 +19,8 @@ const VideoPlayer = ({
   poster,
   isSticky,
   controlsAutoHideDelay = 2500,
+  forwardSeconds = 10,
+  backwardSeconds = 10,
   className,
   onVideoEnd,
   onTheaterModeToggle,
@@ -166,6 +168,8 @@ const VideoPlayer = ({
         isVisible={controlsVisible}
         currentTime={currentTime}
         duration={duration}
+        backwardSeconds={backwardSeconds}
+        forwardSeconds={forwardSeconds}
         togglePlay={togglePlay}
         toggleFullScreen={toggleFullScreen}
         toggleTheaterMode={toggleTheaterMode}
