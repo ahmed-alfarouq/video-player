@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import MobileContext from "./context/MobileContext";
 
-import VideoPlayer from "./VideoPlayer";
+import VideoPlayer from "./components/VideoPlayer";
 
 const App = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -20,10 +20,10 @@ const App = () => {
 
   return (
     <MobileContext.Provider value={{ isMobile }}>
-      <section className="container mx-auto mt-10 h-[1000000px]">
+      <section className="container mx-auto mt-10 h-[1000px]">
         <VideoPlayer
           src="https://demo-video.pages.dev/want-to-work.mp4"
-          isSticky
+          isSticky={true}
         />
       </section>
     </MobileContext.Provider>
