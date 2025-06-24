@@ -32,7 +32,11 @@ const Controls = ({
 
   const handleToggleMute = useCallback(() => {
     const video = videoRef.current;
+
     if (video) {
+      if (video.muted) {
+        video.muted = false;
+      }
       if (video.volume > 0) {
         video.volume = 0;
         setVolume(0);
@@ -48,6 +52,9 @@ const Controls = ({
     (percent: number) => {
       const video = videoRef.current;
       if (video) {
+        if (video.muted) {
+          video.muted = false;
+        }
         if (Number.isFinite(percent)) {
           video.volume = percent / 100;
           setVolume(percent);
@@ -88,6 +95,9 @@ const Controls = ({
     const video = videoRef.current;
     if (video) {
       if (video.volume < 1) {
+        if (video.muted) {
+          video.muted = false;
+        }
         video.volume = Math.min(video.volume + 0.2, 1);
         setVolume(video.volume * 100);
       }
@@ -98,6 +108,9 @@ const Controls = ({
     const video = videoRef.current;
     if (video) {
       if (video.volume > 0) {
+        if (video.muted) {
+          video.muted = false;
+        }
         video.volume = Math.max(video.volume - 0.2, 0);
         setVolume(video.volume * 100);
       }
@@ -199,7 +212,9 @@ const Controls = ({
       />
       <div className="flex items-center gap-5">
         <DurationDisplay duration={duration} currentTime={currentTime} />
-        {!isMobile && <TheaterModeButton toggle={toggleTheaterMode} />}
+        {!isMobile && toggleTheaterMode && (
+          <TheaterModeButton toggle={toggleTheaterMode} />
+        )}
         <FullScreenToggle toggle={toggleFullScreen} />
       </div>
     </div>

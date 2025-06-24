@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@sglara/cn";
 
 import Controls from "./components/Controls";
@@ -18,6 +18,8 @@ const VideoPlayer = ({
   src,
   poster,
   isSticky,
+  isAutoPlay,
+  isMuted,
   controlsAutoHideDelay = 2500,
   forwardSeconds = 10,
   backwardSeconds = 10,
@@ -95,7 +97,7 @@ const VideoPlayer = ({
     } else {
       video.pause();
     }
-  }, [currentTime, duration]);
+  }, [duration]);
 
   const toggleFullScreen = useCallback(async () => {
     const container = containerRef.current;
@@ -119,9 +121,14 @@ const VideoPlayer = ({
     }
   }, []);
 
-  const toggleTheaterMode = useCallback(() => {
-    onTheaterModeToggle?.();
-  }, [onTheaterModeToggle]);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (canPlay && isAutoPlay && isMuted && video) {
+      video.volume = 0;
+      video.muted = true;
+      video.play();
+    }
+  }, [isAutoPlay, canPlay, isMuted]);
 
   return (
     <div
@@ -146,7 +153,7 @@ const VideoPlayer = ({
         ref={videoRef}
         src={src}
         poster={poster}
-        className="w-full h-auto block"
+        className="h-full w-full block"
         onLoadedMetadata={handleLoadedMetadata}
         onCanPlay={handleCanPlay}
         onPlay={handlePlay}
@@ -172,7 +179,7 @@ const VideoPlayer = ({
         forwardSeconds={forwardSeconds}
         togglePlay={togglePlay}
         toggleFullScreen={toggleFullScreen}
-        toggleTheaterMode={toggleTheaterMode}
+        toggleTheaterMode={onTheaterModeToggle}
       />
     </div>
   );

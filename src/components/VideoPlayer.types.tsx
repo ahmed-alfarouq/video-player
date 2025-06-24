@@ -2,6 +2,8 @@ export interface VideoPlayerProps {
   src: string;
   poster?: string;
   isSticky?: boolean;
+  isAutoPlay?: boolean;
+  isMuted?: boolean;
   controlsAutoHideDelay?: number;
   forwardSeconds?: number;
   backwardSeconds?: number;
@@ -21,7 +23,7 @@ export interface ControlsProps {
   backwardSeconds?: number;
   togglePlay: () => void;
   toggleFullScreen: () => void;
-  toggleTheaterMode: () => void;
+  toggleTheaterMode?: () => void;
 }
 
 export interface PlayPauseOverlayProps {
