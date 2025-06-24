@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Tailwind Video Player Documentation</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <h2 id="top">React Tailwind Video Player – Lightweight & Customizable</h2>
+    <p>A fully customizable, mobile-first <strong>React video player</strong> powered by <strong>Tailwind CSS</strong>.
+    </p>
+
+    <!-- Jump Links -->
+    <div id="toc">
+        <h3>📖 Quick Navigation</h3>
+        <ul>
+            <li><a href="#features">✨ Features</a></li>
+            <li><a href="#upcoming">🚧 Upcoming Features</a></li>
+            <li><a href="#files">📦 Files Included</a></li>
+            <li><a href="#usecases">💼 Use Cases</a></li>
+            <li><a href="#developer">📚 Developer-Friendly</a></li>
+            <li><a href="#usage">📌 How to Use</a></li>
+            <li><a href="#props">🧩 Props Overview</a></li>
+            <li><a href="#requirements">🔧 Requirements</a></li>
+            <li><a href="#support">📞 Support</a></li>
+        </ul>
+    </div>
+
+    <hr />
+
+    <h3 id="features">✨ Features</h3>
+    <ul>
+        <li>📱 Mobile-friendly with auto-hide controls</li>
+        <li>🎮 Keyboard & mouse interaction</li>
+        <li>🖼 Poster support</li>
+        <li>🔄 Forward/backward seek with custom seconds</li>
+        <li>🖥 Fullscreen & Theater mode toggle</li>
+        <li>📌 Sticky on scroll (mobile)</li>
+    </ul>
+
+    <hr />
+
+    <h3 id="upcoming">🚧 Upcoming Features</h3>
+    <ul>
+        <li>Captions (.vtt)</li>
+        <li>Playback speed menu</li>
+        <li>Thumbnail preview</li>
+        <li>Resolution switching</li>
+        <li>Google Ads integration</li>
+        <li>HTML/CSS/JS version</li>
+    </ul>
+
+    <hr />
+
+    <h3 id="files">📦 Files Included</h3>
+    <ul>
+        <li><code>index.mjs</code> – ES Module</li>
+        <li><code>index.js</code> – CommonJS</li>
+        <li><code>index.d.ts</code> – TypeScript declarations</li>
+        <li><code>.map</code> – Debugging support</li>
+    </ul>
+
+    <hr />
+
+    <h3 id="usecases">💼 Use Cases</h3>
+    <ul>
+        <li>Courses & education platforms</li>
+        <li>Marketing or portfolio videos</li>
+        <li>In-app product training</li>
+    </ul>
+
+    <hr />
+
+    <h3 id="developer">📚 Developer-Friendly</h3>
+    <ul>
+        <li>Written in TypeScript</li>
+        <li>Reusable hooks</li>
+        <li>Fully customizable props</li>
+    </ul>
+
+    <hr />
+
+    <h3 id="usage">📌 How to Use</h3>
+
+    <h4>Step 1: Import</h4>
+    <pre><code>import VideoPlayer from './your-folder'</code></pre>
+
+    <h4>Step 2: Use it</h4>
+    <pre><code>
+&lt;VideoPlayer
+  src="/video.mp4"
+  poster="/poster.jpg"
+  isSticky
+  isAutoPlay
+  isMuted
+  forwardSeconds={15}
+  backwardSeconds={5}
+  controlsAutoHideDelay={3000}
+/&gt;
+</code></pre>
+
+    <hr />
+
+    <h3 id="props">🧩 Props Overview</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>src</code></td>
+                <td>string</td>
+                <td>–</td>
+                <td>Video source URL</td>
+            </tr>
+            <tr>
+                <td><code>poster</code></td>
+                <td>string</td>
+                <td>""</td>
+                <td>Optional poster image</td>
+            </tr>
+            <tr>
+                <td><code>isSticky</code></td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>Sticky on mobile scroll</td>
+            </tr>
+            <tr>
+                <td><code>isAutoPlay</code></td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>Autoplay (requires <code>isMuted</code>)</td>
+            </tr>
+            <tr>
+                <td><code>isMuted</code></td>
+                <td>boolean</td>
+                <td>false</td>
+                <td>Mute on load (needed for autoplay)</td>
+            </tr>
+            <tr>
+                <td><code>controlsAutoHideDelay</code></td>
+                <td>number</td>
+                <td>2500</td>
+                <td>Auto-hide delay in ms</td>
+            </tr>
+            <tr>
+                <td><code>forwardSeconds</code></td>
+                <td>number</td>
+                <td>10</td>
+                <td>Seconds to skip forward</td>
+            </tr>
+            <tr>
+                <td><code>backwardSeconds</code></td>
+                <td>number</td>
+                <td>10</td>
+                <td>Seconds to rewind</td>
+            </tr>
+            <tr>
+                <td><code>onVideoEnd</code></td>
+                <td>() => void</td>
+                <td>–</td>
+                <td>Callback when video ends</td>
+            </tr>
+            <tr>
+                <td><code>onTheaterModeToggle</code></td>
+                <td>() => void</td>
+                <td>–</td>
+                <td>Callback for theater toggle</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr />
+
+    <h3 id="requirements">🔧 Requirements</h3>
+    <ul>
+        <li>React 18+</li>
+        <li>Tailwind CSS v3+</li>
+        <li>React Icons</li>
+        <li>Vite, Next.js, or CRA setup</li>
+    </ul>
+
+    <hr />
+
+    <h3 id="support">📞 Support</h3>
+    <p>Need help? Contact us through your Envato Downloads page or email us directly.</p>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" title="Back to Top">↑</button>
+
+    <script>
+        const btn = document.getElementById("scrollToTopBtn");
+        window.addEventListener("scroll", () => {
+            btn.style.display = window.scrollY > 300 ? "block" : "none";
+        });
+        btn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+</body>
+
+</html>
