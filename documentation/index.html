@@ -31,14 +31,16 @@
 
     <hr />
 
-    <h3 id="features">✨ Features</h3>
+    <h3>✨ Features</h3>
     <ul>
         <li>📱 Mobile-friendly with auto-hide controls</li>
-        <li>🎮 Keyboard & mouse interaction</li>
+        <li>🎮 Keyboard shortcuts and mouse interaction</li>
         <li>🖼 Poster support</li>
-        <li>🔄 Forward/backward seek with custom seconds</li>
-        <li>🖥 Fullscreen & Theater mode toggle</li>
-        <li>📌 Sticky on scroll (mobile)</li>
+        <li>🔄 Forward / backward buttons with custom seconds</li>
+        <li>🖥 Fullscreen & Theater Mode toggle</li>
+        <li>📌 Optional sticky-on-scroll mode (mobile)</li>
+        <li>▶️ Autoplay support with smart muted fallback</li>
+        <li>🔇 Programmatic mute/unmute with volume sync</li>
     </ul>
 
     <hr />
@@ -57,11 +59,13 @@
 
     <h3 id="files">📦 Files Included</h3>
     <ul>
-        <li><code>index.mjs</code> – ES Module</li>
-        <li><code>index.js</code> – CommonJS</li>
-        <li><code>index.d.ts</code> – TypeScript declarations</li>
-        <li><code>.map</code> – Debugging support</li>
+        <li><code>index.mjs</code> – ES Module (minified for production)</li>
+        <li><code>index.js</code> – CommonJS format (minified for production)</li>
+        <li><code>index.d.ts</code> – TypeScript type declarations</li>
+        <li><code>*.map</code> – Source maps for easier debugging</li>
+        <li><code>/src</code> – Uncompressed source code (components, hooks, styles)</li>
     </ul>
+
 
     <hr />
 
@@ -119,64 +123,75 @@
                 <td><code>src</code></td>
                 <td>string</td>
                 <td>–</td>
-                <td>Video source URL</td>
+                <td>Video URL (required)</td>
             </tr>
             <tr>
                 <td><code>poster</code></td>
                 <td>string</td>
                 <td>""</td>
-                <td>Optional poster image</td>
+                <td>Optional poster image shown before playback</td>
             </tr>
             <tr>
                 <td><code>isSticky</code></td>
                 <td>boolean</td>
                 <td>false</td>
-                <td>Sticky on mobile scroll</td>
+                <td>Sticky player on scroll (mobile only)</td>
             </tr>
             <tr>
                 <td><code>isAutoPlay</code></td>
                 <td>boolean</td>
                 <td>false</td>
-                <td>Autoplay (requires <code>isMuted</code>)</td>
+                <td>
+                    Automatically start playing the video on load.<br />
+                    <strong>Note:</strong> Most browsers require <code>isMuted</code> to be <code>true</code> for
+                    autoplay to work without user interaction.
+                </td>
             </tr>
             <tr>
                 <td><code>isMuted</code></td>
                 <td>boolean</td>
                 <td>false</td>
-                <td>Mute on load (needed for autoplay)</td>
+                <td>
+                    Start video muted. <br />
+                    Required for <code>isAutoPlay</code> compatibility in most modern browsers.
+                </td>
             </tr>
             <tr>
                 <td><code>controlsAutoHideDelay</code></td>
                 <td>number</td>
                 <td>2500</td>
-                <td>Auto-hide delay in ms</td>
+                <td>Delay (in milliseconds) before controls auto-hide after inactivity</td>
             </tr>
             <tr>
                 <td><code>forwardSeconds</code></td>
                 <td>number</td>
                 <td>10</td>
-                <td>Seconds to skip forward</td>
+                <td>Number of seconds to seek forward when using the forward button or shortcut</td>
             </tr>
             <tr>
                 <td><code>backwardSeconds</code></td>
                 <td>number</td>
                 <td>10</td>
-                <td>Seconds to rewind</td>
+                <td>Number of seconds to seek backward when using the back button or shortcut</td>
             </tr>
             <tr>
                 <td><code>onVideoEnd</code></td>
                 <td>() => void</td>
                 <td>–</td>
-                <td>Callback when video ends</td>
+                <td>Callback function triggered when the video reaches the end</td>
             </tr>
             <tr>
                 <td><code>onTheaterModeToggle</code></td>
                 <td>() => void</td>
                 <td>–</td>
-                <td>Callback for theater toggle</td>
+                <td>
+                    Optional callback triggered when theater mode is toggled. If not provided, the theater toggle button
+                    will be hidden.
+                </td>
             </tr>
         </tbody>
     </table>
+
 
     <hr />
 

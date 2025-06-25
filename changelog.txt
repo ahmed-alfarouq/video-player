@@ -1,0 +1,11 @@
+# Changelog
+
+## [1.0.0] - 2025-06-25
+### Initial release of the React Custom Video Player
+- Fully responsive layout
+- Custom seek bar and volume control built from scratch
+- Forward/Backward controls with configurable skip duration
+- Fullscreen & Theater Mode
+- Auto-hide controls after inactivity
+- Sticky-on-scroll mode on mobile devices (similar to YouTube)
+- Keyboard shortcut support for Play/Pause, Mute, Volume, Seek, Fullscreen, and Theater Mode
