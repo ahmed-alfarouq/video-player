@@ -14,6 +14,8 @@ export interface VideoPlayerProps {
 
 export interface ControlsProps {
   videoRef: React.RefObject<HTMLVideoElement | null>;
+  isAutoPlay?: boolean;
+  isMuted?: boolean;
   hasPlayed: boolean;
   isPaused: boolean;
   isVisible: boolean;
@@ -56,7 +58,7 @@ export interface BackwardButtonProps {
 }
 
 export interface VolumeControlProps {
-  value: number; // From 0 to 100
+  volume: number; // From 0 to 100
   onChange: (percent: number) => void;
   toggleMute: () => void;
 }
@@ -93,4 +95,25 @@ export interface TheaterModeButtonProps {
 export interface ErrorMessageProps {
   message: string;
   className?: string;
+}
+
+// Hooks
+export interface useVideoControlsProps {
+  videoRef: React.RefObject<HTMLVideoElement | null>;
+  isAutoPlay?: boolean;
+  isMuted?: boolean;
+  duration: number;
+  togglePlay: () => void;
+  toggleFullScreen: () => void;
+  toggleTheaterMode?: () => void;
+}
+
+export interface useVideoShortcutsProps {
+  videoRef: React.RefObject<HTMLVideoElement | null>;
+  togglePlay: () => void;
+  toggleFullScreen: () => void;
+  toggleTheaterMode?: () => void;
+  handleToggleMute: () => void;
+  handleIncreaseVolume: () => void;
+  handleDecreaseVolume: () => void;
 }

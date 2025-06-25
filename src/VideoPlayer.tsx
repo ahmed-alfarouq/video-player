@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { cn } from "@sglara/cn";
 
 import Controls from "./components/Controls";
@@ -55,7 +55,10 @@ const VideoPlayer = ({
     if (videoRef.current) setDuration(videoRef.current.duration);
   }, []);
 
-  const handleCanPlay = useCallback(() => setCanPlay(true), []);
+  const handleCanPlay = useCallback(() => {
+    setCanPlay(true);
+    setIsBuffering(false);
+  }, []);
 
   const handlePause = useCallback(() => setIsPaused(true), []);
 
@@ -64,7 +67,9 @@ const VideoPlayer = ({
     setIsPaused(false);
   }, []);
 
-  const handleWaiting = useCallback(() => setIsBuffering(true), []);
+  const handleWaiting = useCallback(() => {
+    setIsBuffering(true);
+  }, []);
 
   const handleSeeking = useCallback(() => {
     if (!isPaused) setIsBuffering(true);
@@ -85,8 +90,7 @@ const VideoPlayer = ({
     const video = videoRef.current;
     if (!video) return;
 
-    const isAtEnd =
-      currentTime === duration && currentTime !== 0 && duration !== 0;
+    const isAtEnd = currentTime === duration && duration !== 0;
 
     if (video.paused) {
       if (isAtEnd) {
@@ -121,15 +125,6 @@ const VideoPlayer = ({
     }
   }, []);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (canPlay && isAutoPlay && isMuted && video) {
-      video.volume = 0;
-      video.muted = true;
-      video.play();
-    }
-  }, [isAutoPlay, canPlay, isMuted]);
-
   return (
     <div
       className={cn(
@@ -153,6 +148,8 @@ const VideoPlayer = ({
         ref={videoRef}
         src={src}
         poster={poster}
+        {...(isMuted ? { muted: true } : {})}
+        {...(isAutoPlay ? { autoPlay: true } : {})}
         className="h-full w-full block"
         onLoadedMetadata={handleLoadedMetadata}
         onCanPlay={handleCanPlay}
@@ -167,20 +164,23 @@ const VideoPlayer = ({
       >
         Your browser does not support the video tag.
       </video>
-
-      <Controls
-        videoRef={videoRef}
-        hasPlayed={hasPlayed}
-        isPaused={isPaused}
-        isVisible={controlsVisible}
-        currentTime={currentTime}
-        duration={duration}
-        backwardSeconds={backwardSeconds}
-        forwardSeconds={forwardSeconds}
-        togglePlay={togglePlay}
-        toggleFullScreen={toggleFullScreen}
-        toggleTheaterMode={onTheaterModeToggle}
-      />
+      {canPlay && (
+        <Controls
+          videoRef={videoRef}
+          isAutoPlay={isAutoPlay}
+          isMuted={isMuted}
+          hasPlayed={hasPlayed}
+          isPaused={isPaused}
+          isVisible={controlsVisible}
+          currentTime={currentTime}
+          duration={duration}
+          backwardSeconds={backwardSeconds}
+          forwardSeconds={forwardSeconds}
+          togglePlay={togglePlay}
+          toggleFullScreen={toggleFullScreen}
+          toggleTheaterMode={onTheaterModeToggle}
+        />
+      )}
     </div>
   );
 };

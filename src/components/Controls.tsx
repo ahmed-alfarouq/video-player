@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from "react";
 import { cn } from "@sglara/cn";
 
 import SeekBar from "./SeekBar";
@@ -11,11 +10,14 @@ import FullScreenToggle from "./FullScreenToggle";
 import TheaterModeButton from "./TheaterModeButton";
 
 import { useMobileContext } from "../context/MobileContext";
+import useVideoControls from "../hooks/useVideoControls";
 
 import type { ControlsProps } from "./VideoPlayer.types";
 
 const Controls = ({
   videoRef,
+  isAutoPlay,
+  isMuted,
   hasPlayed,
   isPaused,
   isVisible,
@@ -28,153 +30,22 @@ const Controls = ({
   toggleTheaterMode,
 }: ControlsProps) => {
   const { isMobile } = useMobileContext();
-  const [volume, setVolume] = useState(100);
-
-  const handleToggleMute = useCallback(() => {
-    const video = videoRef.current;
-
-    if (video) {
-      if (video.muted) {
-        video.muted = false;
-      }
-      if (video.volume > 0) {
-        video.volume = 0;
-        setVolume(0);
-        return;
-      }
-
-      video.volume = 1;
-      setVolume(100);
-    }
-  }, [videoRef]);
-
-  const handleVolumeChange = useCallback(
-    (percent: number) => {
-      const video = videoRef.current;
-      if (video) {
-        if (video.muted) {
-          video.muted = false;
-        }
-        if (Number.isFinite(percent)) {
-          video.volume = percent / 100;
-          setVolume(percent);
-        }
-      }
-    },
-    [videoRef]
-  );
-
-  const handleSeek = useCallback(
-    (percent: number) => {
-      const video = videoRef.current;
-      if (video) {
-        const newTime = (percent / 100) * duration;
-        if (Number.isFinite(newTime)) {
-          video.currentTime = newTime;
-        }
-      }
-    },
-    [videoRef, duration]
-  );
-
-  const handleSeekBackward = useCallback(
-    (s: number) => {
-      if (videoRef.current) videoRef.current.currentTime -= s;
-    },
-    [videoRef]
-  );
-
-  const handleSeekForward = useCallback(
-    (s: number) => {
-      if (videoRef.current) videoRef.current.currentTime += s;
-    },
-    [videoRef]
-  );
-
-  const handleIncreaseVolume = useCallback(() => {
-    const video = videoRef.current;
-    if (video) {
-      if (video.volume < 1) {
-        if (video.muted) {
-          video.muted = false;
-        }
-        video.volume = Math.min(video.volume + 0.2, 1);
-        setVolume(video.volume * 100);
-      }
-    }
-  }, [videoRef]);
-
-  const handleDecreaseVolume = useCallback(() => {
-    const video = videoRef.current;
-    if (video) {
-      if (video.volume > 0) {
-        if (video.muted) {
-          video.muted = false;
-        }
-        video.volume = Math.max(video.volume - 0.2, 0);
-        setVolume(video.volume * 100);
-      }
-    }
-  }, [videoRef]);
-
-  useEffect(() => {
-    const video = videoRef.current;
-
-    if (video) {
-      setVolume(video.volume * 100);
-    }
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!video) return;
-
-      const activeTag = document.activeElement?.tagName.toLowerCase();
-      if (activeTag === "input" || activeTag === "textarea") return;
-
-      switch (e.key.toLowerCase()) {
-        case " ":
-          e.preventDefault();
-          togglePlay();
-          break;
-        case "m":
-          handleToggleMute();
-          break;
-        case "f":
-          toggleFullScreen();
-          break;
-        case "t":
-          toggleTheaterMode();
-          break;
-        case "arrowright":
-          video.currentTime += 5;
-          break;
-        case "arrowleft":
-          video.currentTime -= 5;
-          break;
-        case "arrowup":
-          e.preventDefault();
-          handleIncreaseVolume();
-          break;
-        case "arrowdown":
-          e.preventDefault();
-          handleDecreaseVolume();
-          break;
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [
-    handleDecreaseVolume,
-    handleIncreaseVolume,
+  const {
+    volume,
+    handleVolumeChange,
     handleToggleMute,
-    hasPlayed,
+    handleSeek,
+    handleSeekBackward,
+    handleSeekForward,
+  } = useVideoControls({
+    videoRef,
+    isAutoPlay,
+    isMuted,
+    duration,
+    togglePlay,
     toggleFullScreen,
     toggleTheaterMode,
-    togglePlay,
-    videoRef,
-  ]);
+  });
 
   return (
     <div
@@ -200,7 +71,7 @@ const Controls = ({
           ariaLabel="Skip forward 15 seconds"
         />
         <VolumeControl
-          value={volume}
+          volume={volume}
           onChange={handleVolumeChange}
           toggleMute={handleToggleMute}
         />
