@@ -7,10 +7,9 @@ import PlayPauseOverlay from "./components/PlayPauseOverlay";
 import PlayButtonOverlay from "./components/PlayButtonOverlay";
 import BufferingIndicator from "./components/BufferingIndicator";
 
+import useMobile from "./hooks/useMobile";
 import useStickyOnMobile from "./hooks/useStickyOnMobile";
 import useAutoHideControls from "./hooks/useAutoHideControls";
-
-import { useMobileContext } from "./context/MobileContext";
 
 import type { VideoPlayerProps } from "./components/VideoPlayer.types";
 
@@ -27,7 +26,7 @@ const VideoPlayer = ({
   onVideoEnd,
   onTheaterModeToggle,
 }: VideoPlayerProps) => {
-  const { isMobile } = useMobileContext();
+  const { isMobile } = useMobile();
 
   const [hasPlayed, setHasPlayed] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -128,7 +127,7 @@ const VideoPlayer = ({
   return (
     <div
       className={cn(
-        "relative w-full max-h-[85vh] rounded-md overflow-hidden transition-all duration-300",
+        "relative w-full max-h-[85vh] rounded-md overflow-hidden transition-all duration-300 bg-black",
         isStickyActive && "fixed top-0 left-0 right-0 rounded-none z-[60]",
         className
       )}
@@ -136,7 +135,7 @@ const VideoPlayer = ({
     >
       {!hasPlayed && canPlay && <PlayButtonOverlay play={togglePlay} />}
       {errorMessage && <ErrorMessage message={errorMessage} />}
-      {(isBuffering || !canPlay) && <BufferingIndicator />}
+      {hasPlayed && (isBuffering || !canPlay) && <BufferingIndicator />}
 
       <PlayPauseOverlay
         togglePlay={togglePlay}
@@ -150,7 +149,7 @@ const VideoPlayer = ({
         poster={poster}
         {...(isMuted ? { muted: true } : {})}
         {...(isAutoPlay ? { autoPlay: true } : {})}
-        className="h-full w-full block"
+        className="w-full"
         onLoadedMetadata={handleLoadedMetadata}
         onCanPlay={handleCanPlay}
         onPlay={handlePlay}

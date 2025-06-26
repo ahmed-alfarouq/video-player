@@ -40,7 +40,10 @@ import VideoPlayer from "./path-to-dist";
 
 ```tsx
 import React from "react";
-import VideoPlayer from "af-video-player";
+// if you use compressed files
+import VideoPlayer from "./dist";
+// if you use components
+import VideoPlayer from "./src/VideoPlayer";
 
 function App() {
   return (
@@ -155,14 +158,12 @@ export default App;
 ├── src/               # Full uncompressed source code
 │   ├── components/
 │   ├── hooks/
-│   ├── context/
-│   └── index.ts
+│   └── VideoPlayer.tsx
 ├── dist/              # Production builds
 │   ├── index.js       # CommonJS
 │   ├── index.mjs      # ES Module
 │   ├── index.d.ts     # TypeScript types
 │   └── *.map          # Source maps
-├── demo/              # Full React app demo (Vite, React icons, Tailwindcss)
 ├── README.md
 ├── license.txt
 └── changelog.txt

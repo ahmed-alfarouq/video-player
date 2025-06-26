@@ -9,7 +9,7 @@ import DurationDisplay from "./DurationDisplay";
 import FullScreenToggle from "./FullScreenToggle";
 import TheaterModeButton from "./TheaterModeButton";
 
-import { useMobileContext } from "../context/MobileContext";
+import useMobile from "../hooks/useMobile";
 import useVideoControls from "../hooks/useVideoControls";
 
 import type { ControlsProps } from "./VideoPlayer.types";
@@ -29,7 +29,7 @@ const Controls = ({
   toggleFullScreen,
   toggleTheaterMode,
 }: ControlsProps) => {
-  const { isMobile } = useMobileContext();
+  const { isMobile } = useMobile();
   const {
     volume,
     handleVolumeChange,
