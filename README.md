@@ -1,183 +1,118 @@
-# 🎥 React Custom Video Player
+### 🎥 React Custom Video Player
 
-A **fully custom**, mobile-first **React video player** built with **Tailwind CSS**, optimized for clean UI, performance, and full developer control. Includes a custom seek bar, full-screen/theater modes, keyboard shortcuts, and sticky mobile behavior—without third-party branding.
-
----
-
-## 🚀 Features
-
-* ✅ Fully custom Play/Pause, Seek, Volume, Fullscreen, Theater Mode
-* 🎮 Keyboard shortcuts (space, arrows, m, f, t) & mouse interaction
-* 🕹️ Auto-hide controls on inactivity
-* 📱 Sticky-on-scroll mode (mobile)
-* 🎞 Poster image support
-* 🔊 Volume control with visual feedback
-* ⏩ Forward/backward seeking with custom seconds
-* 🧠 Built-in loader during buffering
-* ⚙️ Autoplay + mute support for modern browsers
-* 🧩 Easily customizable via props
-* 🌙 Tailwind CSS-powered UI — theme it your way
+A fully custom, mobile-friendly **React video player component** built from scratch using **Tailwind CSS**—designed with performance, clean UX, and full developer control in mind.
+This project was self-initiated to deepen my front-end engineering skills by re-creating a core feature often handled by libraries or native elements.
 
 ---
 
-## 📦 Installation
+#### 🔧 Highlights
 
-After purchasing from **CodeCanyon**:
+- 🎬 Custom-built controls: Play/Pause, Seek Bar, Volume, Fullscreen, Theater Mode
+- ⏩ Custom skip duration (forward/backward)
+- 🎮 Keyboard support: `Space`, `←`, `→`, `M`, `F`, `T`
+- 🧼 Auto-hide UI after inactivity
+- 📱 Sticky scroll mode for mobile
+- 🎞 Poster image support
+- 🔊 Visual volume indicator
+- 🧩 Easily customizable via props
+- 📑 Multi-language captions via custom captions implementation
 
-1. Unzip the downloaded package
-2. Copy the contents of `/dist` into your project
-3. Import and use it like any local component:
+---
+
+#### 🧪 Live Demo
+
+🔗 [Video Player Preview](https://af-video-player.vercel.app/)
+
+---
+
+#### 🧪 Tech Stack
+
+- **React** with Hooks
+- **Tailwind CSS**
+- Full prop-driven architecture for reusability and DX
+
+---
+
+#### 💻 Code Usage
 
 ```tsx
-import VideoPlayer from "./path-to-dist";
+import VideoPlayer from "./VideoPlayer";
+
+<VideoPlayer
+  src="/video.mp4"
+  poster="/poster.jpg"
+  isSticky
+  isAutoPlay
+  isMuted
+  controlsAutoHideDelay={3000}
+  forwardSeconds={10}
+  backwardSeconds={10}
+  onVideoEnd={() => console.log("Video ended")}
+  onTheaterModeToggle={() => console.log("Theater toggled")}
+/>;
 ```
 
-> 📌 You must have **React** and **Tailwind CSS** configured in your project.
-
 ---
 
-## 🧩 Usage
+#### 🧩 Supported Props
 
-```tsx
-import React from "react";
-// if you use compressed files
-import VideoPlayer from "./dist";
-// if you use components
-import VideoPlayer from "./src/VideoPlayer";
+| Prop                    | Type         | Default | Description                             |
+| ----------------------- | ------------ | ------- | --------------------------------------- |
+| `src`                   | `string`     | —       | Video URL (required)                    |
+| `poster`                | `string`     | `""`    | Optional poster image                   |
+| `isSticky`              | `boolean`    | `false` | Sticky player on scroll (mobile only)   |
+| `isAutoPlay`            | `boolean`    | `false` | Autoplay the video (requires `isMuted`) |
+| `isMuted`               | `boolean`    | `false` | Start video muted                       |
+| `controlsAutoHideDelay` | `number`     | `2500`  | Delay (in ms) before controls auto-hide |
+| `forwardSeconds`        | `number`     | `10`    | Seconds to skip forward                 |
+| `backwardSeconds`       | `number`     | `10`    | Seconds to skip backward                |
+| `onVideoEnd`            | `() => void` | —       | Callback when video ends                |
+| `onTheaterModeToggle`   | `() => void` | —       | Callback when toggling theater mode     |
+| `tracks`                | `Track[]`    | —       | Optional subtitle/caption tracks        |
 
-function App() {
-  return (
-    <div className="max-w-3xl mx-auto mt-8">
-      <VideoPlayer
-        src="/video.mp4"
-        poster="/poster.jpg"
-        isSticky
-        isAutoPlay
-        isMuted
-        controlsAutoHideDelay={3000}
-        forwardSeconds={10}
-        backwardSeconds={10}
-        onVideoEnd={() => console.log("Video ended")}
-        onTheaterModeToggle={() => console.log("Theater toggled")}
-      />
-    </div>
-  );
+`Track` structure:
+
+```ts
+interface Track {
+  src: string;
+  srclang: string;
+  label: string;
+  default?: boolean;
 }
-
-export default App;
 ```
 
 ---
 
-## ✨ Props
+#### 🙌 Author Note
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>src</code></td>
-      <td>string</td>
-      <td>–</td>
-      <td>Video URL (required)</td>
-    </tr>
-    <tr>
-      <td><code>poster</code></td>
-      <td>string</td>
-      <td>""</td>
-      <td>Optional poster image</td>
-    </tr>
-    <tr>
-      <td><code>isSticky</code></td>
-      <td>boolean</td>
-      <td>false</td>
-      <td>Sticky player on scroll (mobile only)</td>
-    </tr>
-    <tr>
-      <td><code>isAutoPlay</code></td>
-      <td>boolean</td>
-      <td>false</td>
-      <td>
-        Autoplay the video on load.<br/>
-        <strong>Note:</strong> Most browsers require <code>isMuted</code> to be <code>true</code> for autoplay to work.
-      </td>
-    </tr>
-    <tr>
-      <td><code>isMuted</code></td>
-      <td>boolean</td>
-      <td>false</td>
-      <td>Start video muted (required for autoplay)</td>
-    </tr>
-    <tr>
-      <td><code>controlsAutoHideDelay</code></td>
-      <td>number</td>
-      <td>2500</td>
-      <td>Delay (in ms) before auto-hiding controls</td>
-    </tr>
-    <tr>
-      <td><code>forwardSeconds</code></td>
-      <td>number</td>
-      <td>10</td>
-      <td>Seconds to skip forward</td>
-    </tr>
-    <tr>
-      <td><code>backwardSeconds</code></td>
-      <td>number</td>
-      <td>10</td>
-      <td>Seconds to skip backward</td>
-    </tr>
-    <tr>
-      <td><code>onVideoEnd</code></td>
-      <td>() => void</td>
-      <td>–</td>
-      <td>Callback when the video finishes playing</td>
-    </tr>
-    <tr>
-      <td><code>onTheaterModeToggle</code></td>
-      <td>() => void</td>
-      <td>–</td>
-      <td>
-        Optional callback for toggling theater mode. If omitted, the button is still shown.
-      </td>
-    </tr>
-  </tbody>
-</table>
+This player was built as part of my **self-taught journey** to push the boundaries of component design and real-world UI behavior using only React and Tailwind.
+My goal was to create something minimal, responsive, accessible, and fully customizable—without relying on third-party video libraries.
 
 ---
 
-## 📂 File Structure
+### 👨‍💻 Author
 
-```bash
-📦 af-video-player
-├── src/               # Full uncompressed source code
-│   ├── components/
-│   ├── hooks/
-│   └── VideoPlayer.tsx
-├── dist/              # Production builds
-│   ├── index.js       # CommonJS
-│   ├── index.mjs      # ES Module
-│   ├── index.d.ts     # TypeScript types
-│   └── *.map          # Source maps
-├── README.md
-├── license.txt
-└── changelog.txt
-```
+**🧔 Ahmed Al-Farouq**
+
+- GitHub: [@Ahmed-Alfarouq](https://github.com/Ahmed-Alfarouq)
+- LinkedIn: [Ahmed Al-Farouq](https://www.linkedin.com/in/ahmed-alfarouq)
 
 ---
 
-## 📝 License
+### 🤝 Contributing
 
-This package is for **commercial use only**, licensed via your CodeCanyon purchase. Redistribution or resale is not permitted outside your direct client or project use.
+Contributions, ideas, and feature requests are always welcome!
+Feel free to open an issue or submit a pull request.
 
 ---
 
-## 🙌 Credits
+### ⭐ Show Your Support
 
-Built by [Ahmed Al-Farouq](https://codecanyon.net/user/ahmed_al_farouq) with ❤️
-Powered by [React](https://reactjs.org), [Tailwind CSS](https://tailwindcss.com), and a passion for clean UX.
+If you found this project helpful or inspiring, consider giving it a ⭐ on GitHub — it helps a lot!
+
+---
+
+### 🚀 Let's Build Together
+
+Interested in building clean and performant user experiences?
+Let’s collaborate and create something amazing — especially in eCommerce, UI/UX, or front-end engineering!
