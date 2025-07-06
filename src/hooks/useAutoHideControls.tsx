@@ -23,7 +23,9 @@ const useAutoHideControls = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const handleActivity = () => resetTimer();
+    const handleActivity = () => {
+      resetTimer();
+    };
 
     container.addEventListener("mousemove", handleActivity);
     container.addEventListener("touchstart", handleActivity);

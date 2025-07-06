@@ -2,6 +2,7 @@ import { cn } from "@sglara/cn";
 
 import SeekBar from "./SeekBar";
 import ToggleButton from "./ToggleButton";
+import SettingsMenu from "./SettingsMenu";
 import ForwardButton from "./ForwardButton";
 import VolumeControl from "./VolumeControl";
 import BackwardButton from "./BackwardButton";
@@ -16,6 +17,9 @@ import type { ControlsProps } from "./VideoPlayer.types";
 
 const Controls = ({
   videoRef,
+  tracks,
+  setSelectedTrack,
+  defaultTrackLang,
   isAutoPlay,
   isMuted,
   hasPlayed,
@@ -50,12 +54,12 @@ const Controls = ({
   return (
     <div
       className={cn(
-        "absolute bottom-0 left-0 right-0 z-[60] bg-black/70 flex justify-between items-center gap-3 px-4 py-2 transition-all duration-300",
+        "absolute bottom-0 left-0 right-0 z-[60] bg-black/70 flex justify-between items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 transition-all duration-300",
         !hasPlayed && "hidden",
         isVisible ? "opacity-100 h-11" : "opacity-0 h-0 pointer-events-none"
       )}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center sm:gap-3">
         <BackwardButton
           seconds={backwardSeconds}
           onSeekBackward={handleSeekBackward}
@@ -83,6 +87,12 @@ const Controls = ({
       />
       <div className="flex items-center gap-5">
         <DurationDisplay duration={duration} currentTime={currentTime} />
+        <SettingsMenu
+          videoRef={videoRef}
+          tracks={tracks}
+          setSelectedTrack={setSelectedTrack}
+          defaultTrackLang={defaultTrackLang}
+        />
         {!isMobile && toggleTheaterMode && (
           <TheaterModeButton toggle={toggleTheaterMode} />
         )}

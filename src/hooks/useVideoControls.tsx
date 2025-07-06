@@ -88,7 +88,10 @@ const useVideoControls = ({
     const video = videoRef.current;
     if (!video) return;
 
-    if (isAutoPlay && isMuted) video.volume = 0;
+    if ((isAutoPlay && isMuted) || isMuted) video.volume = 0;
+
+    if (!isMuted) video.volume = 1;
+
     setVolume(video.volume * 100);
   }, [isAutoPlay, isMuted, videoRef]);
 

@@ -9,3 +9,7 @@
 - Auto-hide controls after inactivity
 - Sticky-on-scroll mode on mobile devices (similar to YouTube)
 - Keyboard shortcut support for Play/Pause, Mute, Volume, Seek, Fullscreen, and Theater Mode
+
+
+## [1.1.0] - 2025-06-29
+- Custom captions

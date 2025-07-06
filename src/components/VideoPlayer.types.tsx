@@ -1,6 +1,16 @@
+export type Tab = "speed" | "captions";
+
+export interface Track {
+  src: string;
+  srclang: string;
+  label: string;
+  default?: boolean;
+}
+
 export interface VideoPlayerProps {
   src: string;
   poster?: string;
+  tracks?: Track[];
   isSticky?: boolean;
   isAutoPlay?: boolean;
   isMuted?: boolean;
@@ -12,8 +22,16 @@ export interface VideoPlayerProps {
   onTheaterModeToggle?: () => void;
 }
 
+export interface CaptionOverlayProps {
+  videoRef: React.RefObject<HTMLVideoElement | null>;
+  track?: Track | null;
+}
+
 export interface ControlsProps {
   videoRef: React.RefObject<HTMLVideoElement | null>;
+  tracks?: Track[];
+  setSelectedTrack: (t: string) => void;
+  defaultTrackLang?: string;
   isAutoPlay?: boolean;
   isMuted?: boolean;
   hasPlayed: boolean;
@@ -95,6 +113,33 @@ export interface TheaterModeButtonProps {
 export interface ErrorMessageProps {
   message: string;
   className?: string;
+}
+
+export interface Settings {
+  videoRef: React.RefObject<HTMLVideoElement | null>;
+  tracks?: Track[];
+  setSelectedTrack: (t: string) => void;
+  defaultTrackLang?: string;
+}
+
+export interface TabSelectorProps {
+  tabs: Tab[];
+  activeTab: Tab;
+  onTabChange: (tab: Tab) => void;
+}
+
+export interface MenuListProps<T> {
+  items: T[];
+  activeItem: T;
+  onSelect: (item: T) => void;
+  renderItem?: (item: T) => React.ReactNode;
+  formatLabel?: (item: T) => string;
+}
+
+export interface MenuItemProps {
+  label: string;
+  isActive?: boolean;
+  onClick: () => void;
 }
 
 // Hooks
