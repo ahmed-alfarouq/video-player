@@ -1,3 +1,5 @@
+import useMobile from "../hooks/useMobile";
+
 import type { SidebarControlsProps } from "../types";
 
 const SidebarControls = ({
@@ -9,8 +11,10 @@ const SidebarControls = ({
   isTheaterMode,
   onChange,
 }: SidebarControlsProps) => {
+  const { isMobile } = useMobile();
+
   return (
-    <aside className="w-72 p-6 border-r border-gray-300 bg-[#f9f9fc] dark:bg-[#3c3a63] text-gray-900 dark:text-white shadow-md">
+    <aside className="w-full md:w-72 p-4 md:p-6 border-b md:border-b-0 md:border-r border-gray-300 bg-[#f9f9fc] dark:bg-[#3c3a63] text-gray-900 dark:text-white shadow-md">
       <h2 className="text-2xl font-bold mb-6">Video Player Settings</h2>
 
       <div className="mb-5">
@@ -79,18 +83,20 @@ const SidebarControls = ({
         </label>
       </div>
 
-      <div className="flex items-center gap-3 mb-3">
-        <input
-          type="checkbox"
-          id="isTheaterMode"
-          checked={isTheaterMode}
-          onChange={(e) => onChange("isTheaterMode", e.target.checked)}
-          className="cursor-pointer"
-        />
-        <label className="text-sm cursor-pointer" htmlFor="isTheaterMode">
-          Theater Mode
-        </label>
-      </div>
+      {!isMobile && (
+        <div className="flex items-center gap-3 mb-3">
+          <input
+            type="checkbox"
+            id="isTheaterMode"
+            checked={isTheaterMode}
+            onChange={(e) => onChange("isTheaterMode", e.target.checked)}
+            className="cursor-pointer"
+          />
+          <label className="text-sm cursor-pointer" htmlFor="isTheaterMode">
+            Theater Mode
+          </label>
+        </div>
+      )}
     </aside>
   );
 };

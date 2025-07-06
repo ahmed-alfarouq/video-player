@@ -43,7 +43,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex h-screen bg-gray-100 text-gray-900 overflow-hidden">
+    <div className="flex flex-col md:flex-row h-screen bg-gray-100 text-gray-900 overflow-hidden">
       <SidebarControls {...settings} onChange={handleChange} />
       <VideoPlayerPreview {...settings} />
     </div>

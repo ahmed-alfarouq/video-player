@@ -1,6 +1,8 @@
 import { useState } from "react";
 import VideoPlayer from "../VideoPlayer";
 
+import useMobile from "../hooks/useMobile";
+
 import type { VideoPlayerPreviewProps } from "../types";
 
 const VideoPlayerPreview = ({
@@ -12,6 +14,7 @@ const VideoPlayerPreview = ({
   isTheaterMode,
 }: VideoPlayerPreviewProps) => {
   const [theaterActive, setTheaterActive] = useState(false);
+  const { isMobile } = useMobile();
 
   const handleTheaterToggle = () => {
     setTheaterActive((prev) => !prev);
@@ -56,7 +59,7 @@ const VideoPlayerPreview = ({
               <p>Backward: {backwardSeconds}s</p>
               <p>Auto-hide Delay: {controlsAutoHideDelay}ms</p>
             </div>
-            {isTheaterMode && theaterActive && (
+            {!isMobile && isTheaterMode && theaterActive && (
               <div className="max-h-72 min-w-1/2 flex flex-col justify-between bg-[#22203d] text-white p-4 rounded shadow animate-pulse space-y-3">
                 <div className="h-4 bg-[#3c3a63] rounded w-3/4" />
                 <div className="h-4 bg-[#3c3a63] rounded w-2/3" />
@@ -69,7 +72,7 @@ const VideoPlayerPreview = ({
             )}
           </div>
         </div>
-        {isTheaterMode && !theaterActive && (
+        {!isMobile && isTheaterMode && !theaterActive && (
           <div className="max-h-72 min-w-1/2 flex flex-col justify-between bg-[#22203d] text-white p-4 rounded shadow animate-pulse space-y-3">
             <div className="h-4 bg-[#3c3a63] rounded w-3/4" />
             <div className="h-4 bg-[#3c3a63] rounded w-2/3" />
