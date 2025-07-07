@@ -29,7 +29,7 @@ const VideoPlayerPreview = ({
       <div className="size-full mx-auto flex justify-between gap-2">
         <div className="w-full max-h-[80svh]">
           <VideoPlayer
-            src="https://demo-video.pages.dev/want-to-work.mp4"
+            src="https://demo-video.pages.dev/af.mp4"
             poster=""
             tracks={[
               {
