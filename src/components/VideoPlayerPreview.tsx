@@ -30,7 +30,7 @@ const VideoPlayerPreview = ({
         <div className="w-full max-h-[80svh]">
           <VideoPlayer
             src="https://demo-video.pages.dev/af.mp4"
-            poster=""
+            poster="/thumbnail.png"
             tracks={[
               {
                 src: "/captions/ar.vtt",
